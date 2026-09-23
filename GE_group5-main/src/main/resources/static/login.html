@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KKU Innovation Complex ศูนย์อาหารคณะวิศวกรรมศาสตร์</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style> body { font-family: 'Kanit', sans-serif; } </style>
+</head>
+<body class="bg-slate-100 min-h-screen flex items-center justify-center p-4">
+
+    <!-- Login Container Card -->
+    <div class="bg-white rounded-3xl shadow-2xl border border-slate-100 p-6 md:p-8 max-w-md w-full space-y-6">
+        
+        <!-- Header Brand -->
+        <div class="text-center space-y-2">
+            <div class="w-16 h-16 bg-red-800 text-white rounded-2xl flex items-center justify-center font-bold text-xl shadow-lg mx-auto">
+                ENKKU
+            </div>
+            <h1 class="text-2xl font-black text-slate-800">KKU Innovation Complex</h1>
+            <p class="text-xs text-slate-400">ระบบจองโต๊ะล่วงหน้า ศูนย์อาหารคณะวิศวกรรมศาสตร์</p>
+        </div>
+
+        <!-- Form Login -->
+        <form onsubmit="handleLoginSubmit(event)" class="space-y-4">
+            <div class="space-y-1">
+                <label class="text-xs font-bold text-slate-700">ชื่อผู้ใช้งาน หรือ KKU Mail</label>
+                <div class="relative">
+                    <input type="text" id="login-username"  placeholder="kkumail เช่น std@kkumail.com" required class="w-full border border-slate-200 rounded-2xl px-4 py-3 text-xs focus:outline-none focus:ring-2 focus:ring-red-800/30 transition shadow-sm font-medium">
+                </div>
+            </div>
+
+            <div class="space-y-1">
+                <label class="text-xs font-bold text-slate-700">รหัสผ่าน (Password)</label>
+                <input type="password" id="login-password"  placeholder="••••••••" required class="w-full border border-slate-200 rounded-2xl px-4 py-3 text-xs focus:outline-none focus:ring-2 focus:ring-red-800/30 transition shadow-sm font-medium">
+            </div>
+
+            <div class="flex items-center justify-between text-xs text-slate-500 font-medium">
+                <label class="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" checked class="rounded text-red-800 focus:ring-red-800">
+                    <span>จดจำการเข้าสู่ระบบ</span>
+                </label>
+                <a href="#" class="text-red-800 hover:underline">ลืมรหัสผ่าน?</a>
+            </div>
+
+            <button type="submit" class="w-full bg-red-800 hover:bg-red-900 text-white font-bold py-3.5 rounded-2xl shadow-lg transition text-sm flex items-center justify-center gap-2 active:scale-95">
+                <span>เข้าสู่ระบบ (Sign In)</span>
+            </button>
+        </form>
+
+        <!-- Divider -->
+        <div class="relative flex py-1 items-center">
+            <div class="flex-grow border-t border-slate-200"></div>
+            <span class="flex-shrink mx-3 text-[11px] text-slate-400 font-medium">หรือ</span>
+            <div class="flex-grow border-t border-slate-200"></div>
+        </div>
+
+        <!-- SSO Login Button -->
+        <button onclick="loginWithKKUSSO()" class="w-full bg-slate-900 hover:bg-black text-white font-bold py-3 rounded-2xl text-xs transition flex items-center justify-center gap-2">
+            <span>เข้าสู่ระบบด้วย KKU WebSSO</span>
+        </button>
+
+    </div>
+
+    <script>
+        function handleLoginSubmit(event) {
+            event.preventDefault();
+            const username = document.getElementById('login-username').value.trim();
+            if (username) {
+                const fullEmail = username.includes('@') ? username : `${username}@kkumail.com`;
+                localStorage.setItem('kku_user_email', fullEmail);
+                localStorage.setItem('is_logged_in', 'true');
+                window.location.href = 'index.html';
+            }
+        }
+
+        function loginWithKKUSSO() {
+            localStorage.setItem('kku_user_email', 'nepal@kkumail.com');
+            localStorage.setItem('is_logged_in', 'true');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

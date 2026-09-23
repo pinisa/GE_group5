@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KKU Innovation Complex ศูนย์อาหารคณะวิศวกรรมศาสตร์</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style> 
+        body { font-family: 'Kanit', sans-serif; } 
+        
+        /* CSS สำหรับจัดโครงสร้างผังที่นั่งชั้น 1 */
+        .food-court-layout {
+            display: grid;
+            grid-template-areas:
+                "left-zone food-zone right-zone"
+                "left-zone main-seat right-zone"
+                "left-zone row-e     row-e"
+                "left-zone bottom-zone bottom-zone";
+            grid-template-columns: 110px 1fr 60px;
+            grid-template-rows: auto auto auto auto;
+            gap: 16px;
+            min-width: 850px;
+            background-color: #f8fafc;
+            padding: 20px;
+            border-radius: 16px;
+            border: 2px solid #e2e8f0;
+        }
+
+        /* CSS สำหรับชั้นใต้ดิน ปรับ width ให้ fit-content ป้องกันของทะลุกรอบ */
+        .lower-layout {
+            display: grid;
+            grid-template-columns: 80px auto 80px;
+            gap: 16px;
+            min-width: 860px;
+            width: fit-content;
+            margin: 0 auto;
+            background-color: #f8fafc;
+            padding: 20px;
+            border-radius: 16px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .main-seat-grid {
+            grid-area: main-seat;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            grid-template-rows: repeat(4, 65px);
+            gap: 16px;
+            padding: 16px 0 0 0;
+            justify-items: center;
+            align-items: center;
+        }
+
+        .row-e-grid {
+            grid-area: row-e;
+            display: grid;
+            grid-template-columns: repeat(9, 65px);
+            justify-content: end; 
+            gap: 14px;
+            padding: 16px 0;
+        }
+
+        /* Grid พิเศษสำหรับชั้นใต้ดิน (2-4-2 พร้อมช่องเสา) */
+        .lower-seat-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 65px) 24px repeat(4, 65px) 24px repeat(2, 65px);
+            /* เพิ่มแถวเว้นระยะ 30px ก่อนถึงแถวสุดท้ายที่ปรับให้เล็กลงเหลือ 45px */
+            grid-template-rows: repeat(4, 65px) 30px 45px; 
+            gap: 12px;
+            justify-items: center;
+            align-items: center;
+        }
+
+        .tbl { 
+            width: 100%; 
+            max-width: 65px; 
+            height: 48px;
+            border-radius: 6px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 14px; 
+            font-weight: bold; 
+            transition: all 0.2s;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen pb-24 md:pb-8">
+
+    <header class="bg-red-800 text-white shadow-md sticky top-0 z-40">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-white text-red-800 rounded-xl flex items-center justify-center font-bold text-xs shadow">ENKKU</div>
+                <div>
+                    <h1 class="text-lg md:text-xl font-bold leading-tight">KKU Innovation Complex</h1>
+                    <p class="text-[11px] md:text-xs text-red-200">ศูนย์อาหารคณะวิศวกรรมศาสตร์</p>
+                </div>
+            </div>
+
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+                <a href="index.html" class="text-white border-b-2 border-white pb-1 font-semibold flex items-center gap-1.5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    จองโต๊ะ
+                </a>
+                <a href="booking.html" class="text-red-200 hover:text-white transition flex items-center gap-1.5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5h14a2 2 0 012 2v3a2 2 0 01-2 2H5a2 2 0 000-4V7a2 2 0 012-2z"/></svg>
+                    ตั๋วของฉัน
+                </a>
+                <a href="history.html" class="text-red-200 hover:text-white transition flex items-center gap-1.5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    ประวัติ
+                </a>
+            </nav>
+
+            <div class="relative">
+                <button onclick="toggleUserDropdown(event)" class="bg-red-900/70 hover:bg-red-900 px-3 py-1.5 rounded-full text-xs flex items-center gap-2 border border-red-700/60 shadow-inner transition active:scale-95">
+                    <span class="w-2.5 h-2.5 bg-emerald-400 rounded-full animate-pulse"></span>
+                    <span id="user-display-name" class="font-medium">User</span>
+                    <svg class="w-3.5 h-3.5 text-red-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+
+                <div id="user-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-2xl shadow-xl border border-slate-100 py-1.5 z-50 text-xs text-slate-700 space-y-1">
+                    <div class="px-4 py-2 border-b border-slate-100">
+                        <p class="text-[10px] text-slate-400">เข้าสู่ระบบด้วย</p>
+                        <p id="dropdown-user-email" class="font-bold text-slate-800 truncate">@kkumail.com</p>
+                    </div>
+                    <button onclick="openChangeNameModal()" class="w-full text-left px-4 py-2 hover:bg-slate-50 flex items-center gap-2 font-medium transition">
+                        เปลี่ยนชื่อผู้ใช้งาน
+                    </button>
+                    <button onclick="handleLogout()" class="w-full text-left px-4 py-2 hover:bg-rose-50 text-rose-600 flex items-center gap-2 font-medium transition">
+                        ออกจากระบบ
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <div class="lg:col-span-2 space-y-5">
+            
+            <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-200/80 space-y-3">
+                <div class="flex justify-between items-center text-xs font-bold">
+                    <span class="text-slate-700">
+                        ความหนาแน่นปัจจุบัน
+                    </span>
+                    <span class="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full border border-emerald-200">ว่าง (0%)</span>
+                </div>
+                <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
+                    <div class="bg-emerald-500 h-full rounded-full transition-all duration-500" style="width: 0%;"></div>
+                </div>
+                <div class="flex justify-between text-xs text-slate-500 font-medium pt-1">
+                    <span class="text-emerald-600 font-bold">ว่าง: <span id="stat-available">101</span></span>
+                    <span class="text-amber-600 font-bold">ติดจอง: <span id="stat-pending">0</span></span>
+                    <span class="text-slate-400">ใช้งาน: <span id="stat-occupied">0</span></span>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-200/80 space-y-4">
+                <h2 class="text-sm font-bold text-slate-800 flex items-center gap-2">
+                    <span>1.</span> เลือกกรอบเวลาเข้าใช้บริการ
+                </h2>
+                <div class="grid grid-cols-3 gap-2.5">
+                    <button onclick="selectTimeSlot('11:00 - 11:30', this)" class="time-btn bg-slate-50 border border-slate-200 hover:border-red-800 text-slate-700 font-semibold py-3 rounded-2xl text-xs transition">
+                        11:00 - 11:30
+                    </button>
+                    <button onclick="selectTimeSlot('11:30 - 12:00', this)" class="time-btn bg-slate-50 border border-slate-200 hover:border-red-800 text-slate-700 font-semibold py-3 rounded-2xl text-xs transition">
+                        11:30 - 12:00
+                    </button>
+                    <button onclick="selectTimeSlot('12:00 - 12:30', this)" class="time-btn active bg-red-800 text-white border-2 border-red-800 font-bold py-3 rounded-2xl text-xs transition shadow-sm">
+                        12:00 - 12:30
+                    </button>
+                    <button onclick="selectTimeSlot('12:30 - 13:00', this)" class="time-btn bg-slate-50 border border-slate-200 hover:border-red-800 text-slate-700 font-semibold py-3 rounded-2xl text-xs transition">
+                        12:30 - 13:00
+                    </button>
+                    <button onclick="selectTimeSlot('13:00 - 13:30', this)" class="time-btn bg-slate-50 border border-slate-200 hover:border-red-800 text-slate-700 font-semibold py-3 rounded-2xl text-xs transition">
+                        13:00 - 13:30
+                    </button>
+                    <button onclick="selectTimeSlot('13:30 - 14:00', this)" class="time-btn bg-slate-50 border border-slate-200 hover:border-red-800 text-slate-700 font-semibold py-3 rounded-2xl text-xs transition">
+                        13:30 - 14:00
+                    </button>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-3xl p-5 md:p-6 shadow-sm border border-slate-200/80 space-y-5 overflow-hidden">
+                <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-3 border-b border-slate-100 pb-4">
+                    <h2 class="text-sm font-bold text-slate-800 flex items-center gap-2">
+                        <span>2.</span> ผังที่นั่งศูนย์อาหาร
+                    </h2>
+                    <div class="flex flex-wrap items-center gap-3 text-xs font-semibold text-slate-600">
+                        <span class="flex items-center gap-1.5"><span class="w-3 h-3 bg-emerald-500 rounded-sm shadow-sm"></span> ว่าง</span>
+                        <span class="flex items-center gap-1.5"><span class="w-3 h-3 bg-slate-400 rounded-sm shadow-sm"></span> จองแล้ว / ไม่ว่าง</span>
+                        <span class="flex items-center gap-1.5"><span class="w-3 h-3 bg-blue-600 rounded-sm shadow-sm border border-blue-800"></span> โต๊ะที่คุณเลือก</span>
+                    </div>
+                </div>
+
+                <!-- Tabs สลับชั้น -->
+                <div class="flex justify-center pt-2 pb-2">
+                    <div class="bg-slate-200/70 p-1.5 rounded-2xl flex gap-1.5 shadow-inner">
+                        <button onclick="changeFloor('upper')" id="tab-upper" class="px-6 py-2.5 text-sm font-bold rounded-xl transition-all bg-white text-red-800 shadow-sm ring-1 ring-slate-200">ชั้น 1</button>
+                        <button onclick="changeFloor('lower')" id="tab-lower" class="px-6 py-2.5 text-sm font-bold rounded-xl transition-all text-slate-500 hover:text-slate-700 hover:bg-white/50">ชั้นใต้ดิน</button>
+                    </div>
+                </div>
+
+                <!-- คอนเทนเนอร์ชั้น 1 -->
+                <div id="upper-floor-container" class="overflow-x-auto pb-2">
+                    <div class="food-court-layout relative">
+                        <div style="grid-column: 1; grid-row: 1 / 3;" class="border-r-2 border-slate-200 mr-2"></div>
+                        <div style="grid-area: left-zone;" class="flex gap-3 pt-2 pb-2">
+                            <div class="w-[45px] flex flex-col justify-end pb-2 pl-2">
+                                <div id="left-wall-grid" class="flex flex-col items-center gap-4 w-full"></div>
+                            </div>
+                            <div class="flex-1 flex flex-col items-center justify-center pb-20 pr-4">
+                                <div class="bg-slate-200 text-slate-600 border border-slate-300 py-8 px-2 text-center text-xs rounded-xl shadow-sm font-bold w-full max-w-[45px] leading-relaxed">ที่แลก<br>บัตร</div>
+                            </div>
+                        </div>
+                        <div style="grid-area: food-zone;" class="bg-red-50 border border-red-200 rounded-xl flex items-center justify-center p-3 z-10">
+                            <div class="text-sm font-bold text-red-800 tracking-wider">โซนร้านอาหาร</div>
+                        </div>
+                        <div id="main-seat-grid" class="main-seat-grid relative z-10"></div>
+                        <div style="grid-area: right-zone;" class="bg-red-50 border border-red-200 rounded-xl flex items-center justify-center p-2 z-10">
+                            <div style="writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg);" class="text-sm font-bold text-red-800 tracking-wider">โซนร้านอาหาร</div>
+                        </div>
+                        <div id="row-e-grid" class="row-e-grid relative z-10"></div>
+                        <div style="grid-area: bottom-zone;" class="border-t-2 border-slate-200 pt-4 flex gap-4 items-center z-10">
+                            <div class="bg-yellow-400 text-yellow-900 font-bold px-8 py-2.5 rounded-xl shadow-sm text-xs border border-yellow-500">ที่เก็บจาน</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- คอนเทนเนอร์ชั้นใต้ดิน -->
+                <div id="lower-floor-container" class="hidden overflow-x-auto pb-2">
+                    <div class="lower-layout relative">
+                        
+                        <!-- โซนบันได (ด้านบน) -->
+                        <div class="col-span-3 flex justify-center mb-2">
+                            <div class="border-2 border-slate-800 w-64 h-12 relative flex items-center justify-center bg-slate-50 overflow-hidden rounded-sm">
+                                <div class="absolute inset-0 flex justify-evenly opacity-30">
+                                    <div class="w-px bg-black"></div><div class="w-px bg-black"></div><div class="w-px bg-black"></div><div class="w-px bg-black"></div><div class="w-px bg-black"></div><div class="w-px bg-black"></div><div class="w-px bg-black"></div><div class="w-px bg-black"></div><div class="w-px bg-black"></div>
+                                </div>
+                                <span class="bg-slate-50 px-3 py-0.5 z-10 font-bold text-slate-700 text-sm border border-slate-300 rounded">ทางลงบันไดลง</span>
+                            </div>
+                        </div>
+
+                        <!-- โซนซ้าย: ที่เก็บจาน -->
+                        <div class="flex flex-col justify-center items-center px-2">
+                            <div class="bg-yellow-400 text-yellow-900 font-bold px-3 py-2 rounded-xl shadow-sm text-xs border border-yellow-500 w-full text-center">ที่เก็บ<br>จาน</div>
+                        </div>
+
+                        <!-- ผังที่นั่งตรงกลางชั้นใต้ดิน -->
+                        <div id="lower-seat-grid" class="lower-seat-grid relative p-4"></div>
+
+                        <!-- โซนขวา: ที่เก็บจาน -->
+                        <div class="flex flex-col justify-center items-center px-2">
+                            <div class="bg-yellow-400 text-yellow-900 font-bold px-3 py-2 rounded-xl shadow-sm text-xs border border-yellow-500 w-full text-center">ที่เก็บ<br>จาน</div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="lg:col-span-1">
+            <div class="bg-slate-900 text-white rounded-3xl p-6 shadow-xl sticky top-20 space-y-6 border border-slate-800">
+                <h3 class="text-lg font-bold tracking-wide border-b border-slate-800 pb-3">สรุปรายการจอง</h3>
+
+                <div class="bg-slate-800/80 rounded-2xl p-4 space-y-1.5 border border-slate-700/60">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs text-slate-400 font-medium">โต๊ะที่เลือก</span>
+                        <span id="summary-zone-badge" class="bg-blue-500/20 text-blue-400 text-[11px] font-bold px-2.5 py-0.5 rounded-full border border-blue-500/30">ชั้น 1</span>
+                    </div>
+                    <h2 id="summary-table-no" class="text-3xl font-black text-blue-400">โต๊ะ: E2</h2>
+                </div>
+
+                <div class="bg-slate-800/80 rounded-2xl p-4 flex justify-between items-center border border-slate-700/60">
+                    <div>
+                        <span class="text-xs text-slate-400 block font-medium">รอบเวลาจอง</span>
+                        <b id="summary-time-slot" class="text-amber-400 text-sm font-bold">12:00 - 12:30 น.</b>
+                    </div>
+                    <span class="text-xs text-slate-400 font-semibold bg-slate-700 px-2.5 py-1 rounded-lg">30 นาที</span>
+                </div>
+
+                <div class="space-y-3 pt-2">
+                    <button onclick="confirmBookingAndProceed()" class="w-full bg-red-700 hover:bg-red-800 text-white font-extrabold py-4 rounded-2xl shadow-lg transition duration-200 text-sm flex items-center justify-center gap-2 transform active:scale-95">
+                        <span id="submit-btn-text">ยืนยันโต๊ะ E2  👈</span>
+                    </button>
+                    <p class="text-[11px] text-slate-400 text-center">
+                        *เมื่อยืนยันโต๊ะสำเร็จ จะสามารถสั่งอาหารล่วงหน้าต่อได้ทันที
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal เปลี่ยนชื่อ -->
+    <div id="name-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 max-w-xs w-full shadow-2xl space-y-4 border border-slate-100">
+            <h3 class="font-bold text-slate-800 text-base flex items-center gap-2">
+                <span>✏️</span> เปลี่ยนชื่อผู้ใช้งาน
+            </h3>
+            <div class="space-y-1">
+                <label class="text-[11px] text-slate-400 font-semibold">ชื่อใหม่ที่จะแสดงในระบบ:</label>
+                <input type="text" id="input-new-name" placeholder="ระบุชื่อใหม่..." class="w-full border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-red-800/30">
+            </div>
+            <div class="flex gap-2 text-xs font-bold pt-2">
+                <button onclick="closeChangeNameModal()" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-600 py-2.5 rounded-xl transition">ยกเลิก</button>
+                <button onclick="saveNewName()" class="flex-1 bg-red-800 hover:bg-red-900 text-white py-2.5 rounded-xl shadow transition">บันทึก</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- แถบเมนูด้านล่างสำหรับมือถือ -->
+    <nav class="md:hidden fixed bottom-0 inset-x-0 bg-white border-t border-slate-200 flex justify-around py-2.5 text-xs font-medium z-40 shadow-lg">
+        <a href="index.html" class="text-red-800 flex flex-col items-center gap-0.5">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            <span>จองโต๊ะ</span>
+        </a>
+        <a href="booking.html" class="text-slate-400 hover:text-red-800 flex flex-col items-center gap-0.5">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5h14a2 2 0 012 2v3a2 2 0 01-2 2H5a2 2 0 000-4V7a2 2 0 012-2z"/></svg>
+            <span>ตั๋วของฉัน</span>
+        </a>
+        <a href="history.html" class="text-slate-400 hover:text-red-800 flex flex-col items-center gap-0.5">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span>ประวัติ</span>
+        </a>
+    </nav>
+
+    <script>
+        // Data ชั้น 1
+        const leftWallData = [
+            { id: 'S1', status: 'available' }, { id: 'S2', status: 'available' },
+            { id: 'S3', status: 'available' }, { id: 'S4', status: 'available' }
+        ];
+
+        const floorPlanData = [
+            { id: 'A1', type: 'grey', status: 'available' }, { id: 'A2', type: 'grey', status: 'available' }, { id: 'A3', type: 'grey', status: 'available' }, { id: 'A4', type: 'grey', status: 'available' }, { id: 'A5', type: 'grey', status: 'available' }, { id: 'A6', type: 'grey', status: 'available' },
+            { id: 'B1', type: 'grey', status: 'available' }, { id: 'Bar-1', type: 'plant', status: 'none' }, { id: 'B2', type: 'red', status: 'available' }, { id: 'B3', type: 'red', status: 'available' }, { id: 'Bar-2', type: 'plant', status: 'none' }, { id: 'B4', type: 'grey', status: 'available' },
+            { id: 'C1', type: 'grey', status: 'available' }, { id: 'C2', type: 'red', status: 'available' }, { id: 'C3', type: 'red', status: 'available' }, { id: 'C4', type: 'grey', status: 'available' },
+            { id: 'D1', type: 'grey', status: 'available' }, { id: 'D2', type: 'red', status: 'available' }, { id: 'D3', type: 'red', status: 'available' }, { id: 'D4', type: 'red', status: 'available' }, { id: 'D5', type: 'red', status: 'available' }, { id: 'D6', type: 'grey', status: 'available' }
+        ];
+
+        const rowEData = [
+            { id: 'E1', type: 'grey', status: 'available' }, { id: 'E2', type: 'grey', status: 'available' }, { id: 'E3', type: 'grey', status: 'available' },
+            { id: 'E4', type: 'grey', status: 'available' }, { id: 'E5', type: 'grey', status: 'available' }, { id: 'E6', type: 'grey', status: 'available' },
+            { id: 'E7', type: 'grey', status: 'available' }, { id: 'E8', type: 'grey', status: 'available' }, { id: 'E9', type: 'grey', status: 'available' }
+        ];
+
+        // Data ชั้นใต้ดิน (8 โต๊ะ/แถว, เว้นเสาแบบ 2-4-2)
+        const lowerFloorData = [];
+        for (let r = 1; r <= 4; r++) {
+            lowerFloorData.push({ id: `U${r}1`, r: r, c: 1, type: 'grey', status: 'available' });
+            lowerFloorData.push({ id: `U${r}2`, r: r, c: 2, type: 'grey', status: 'available' });
+
+            if (r <= 4) {
+                lowerFloorData.push({ type: 'pillar', r: r, c: 3 });
+                lowerFloorData.push({ type: 'pillar', r: r, c: 8 });
+            }
+
+            lowerFloorData.push({ id: `U${r}3`, r: r, c: 4, type: 'grey', status: 'available' });
+            lowerFloorData.push({ id: `U${r}4`, r: r, c: 5, type: 'grey', status: 'available' });
+            lowerFloorData.push({ id: `U${r}5`, r: r, c: 6, type: 'grey', status: 'available' });
+            lowerFloorData.push({ id: `U${r}6`, r: r, c: 7, type: 'grey', status: 'available' });
+
+            lowerFloorData.push({ id: `U${r}7`, r: r, c: 9, type: 'grey', status: 'available' });
+            lowerFloorData.push({ id: `U${r}8`, r: r, c: 10, type: 'grey', status: 'available' });
+        }
+
+        // แถว 5 ชั้นใต้ดิน (โต๊ะ 6 ตัวเรียงกัน ขนาดเล็กลง U51-U56)
+        lowerFloorData.push({ id: `U51`, r: 5, c: 4, type: 'grey', status: 'available' });
+        lowerFloorData.push({ id: `U52`, r: 5, c: 5, type: 'grey', status: 'available' });
+        lowerFloorData.push({ id: `U53`, r: 5, c: 6, type: 'grey', status: 'available' });
+        lowerFloorData.push({ id: `U54`, r: 5, c: 7, type: 'grey', status: 'available' });
+        lowerFloorData.push({ id: `U55`, r: 5, c: 9, type: 'grey', status: 'available' });
+        lowerFloorData.push({ id: `U56`, r: 5, c: 10, type: 'grey', status: 'available' });
+
+        // ตั้งค่าเริ่มต้น (เปิดมาเจอชั้น 1 โต๊ะ E2)
+        let selectedTable = 'E2';
+        let selectedTime = '12:00 - 12:30';
+        let currentFloor = 'upper'; 
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const isLoggedIn = localStorage.getItem('is_logged_in');
+            if (isLoggedIn === 'false') {
+                window.location.href = 'login.html';
+                return;
+            }
+            loadUserProfile();
+            changeFloor(currentFloor); // สลับ UI ตั้งแต่โหลด
+            renderTables();
+            updateSummary();
+        });
+
+        function changeFloor(floor) {
+            currentFloor = floor;
+            const tabUpper = document.getElementById('tab-upper');
+            const tabLower = document.getElementById('tab-lower');
+            const upperContainer = document.getElementById('upper-floor-container');
+            const lowerContainer = document.getElementById('lower-floor-container');
+
+            if (floor === 'upper') {
+                tabUpper.className = "px-6 py-2.5 text-sm font-bold rounded-xl transition-all bg-white text-red-800 shadow-sm ring-1 ring-slate-200";
+                tabLower.className = "px-6 py-2.5 text-sm font-bold rounded-xl transition-all text-slate-500 hover:text-slate-700 hover:bg-white/50";
+                upperContainer.classList.remove('hidden');
+                lowerContainer.classList.add('hidden');
+            } else {
+                tabLower.className = "px-6 py-2.5 text-sm font-bold rounded-xl transition-all bg-white text-red-800 shadow-sm ring-1 ring-slate-200";
+                tabUpper.className = "px-6 py-2.5 text-sm font-bold rounded-xl transition-all text-slate-500 hover:text-slate-700 hover:bg-white/50";
+                upperContainer.classList.add('hidden');
+                lowerContainer.classList.remove('hidden');
+            }
+            updateSummary();
+        }
+
+        function createTableBtn(item, container, customClass = '') {
+            const btn = document.createElement('button');
+            const isSelected = item.id === selectedTable;
+            let baseClass = `tbl relative shadow-sm border border-black/10 transition-all ${customClass} `;
+            
+            if (item.status === 'available') {
+                if (isSelected) {
+                    baseClass += 'ring-4 ring-blue-500 scale-110 z-10 shadow-lg bg-blue-600 text-white ';
+                } else {
+                    baseClass += 'bg-emerald-500 text-white hover:scale-105 hover:shadow-md cursor-pointer opacity-100 ';
+                }
+            } else {
+                baseClass += 'bg-slate-400 text-slate-100 cursor-not-allowed opacity-70 ';
+            }
+
+            btn.className = baseClass;
+            btn.innerHTML = item.id;
+            
+            if (item.status === 'available') {
+                btn.onclick = () => selectTable(item.id);
+            }
+            container.appendChild(btn);
+            return btn;
+        }
+
+        function renderTables() {
+            // โซนชั้น 1
+            const mainContainer = document.getElementById('main-seat-grid');
+            const rowEContainer = document.getElementById('row-e-grid');
+            const leftContainer = document.getElementById('left-wall-grid');
+            
+            mainContainer.innerHTML = '';
+            rowEContainer.innerHTML = '';
+            leftContainer.innerHTML = '';
+
+            leftWallData.forEach(item => {
+                const btn = createTableBtn(item, leftContainer);
+                btn.style.height = '40px';
+                btn.style.width = '40px';
+                btn.style.fontSize = '12px';
+            });
+
+            floorPlanData.forEach(item => {
+                if (item.type === 'plant') {
+                    const div = document.createElement('div');
+                    div.className = 'w-full h-full max-w-[85px] bg-slate-200/60 border border-slate-300 rounded-lg grid p-1 shadow-inner relative self-stretch justify-self-center';
+                    div.style.gridRow = 'span 2';
+                    div.style.gridTemplateColumns = '1fr 10px 1fr'; 
+                    div.style.gridTemplateRows = 'repeat(7, 1fr)';
+                    div.style.gap = '2px 4px'; 
+
+                    const centerBar = document.createElement('div');
+                    centerBar.className = 'bg-slate-300 border border-slate-400 rounded-sm shadow-inner w-full h-full flex flex-col items-center justify-around py-1 overflow-hidden';
+                    centerBar.style.gridColumn = '2';
+                    centerBar.style.gridRow = '1 / span 7';
+                    centerBar.innerHTML = '<span class="text-[8px] opacity-60">🪴</span>';
+                    div.appendChild(centerBar);
+
+                    for (let i = 1; i <= 14; i++) {
+                        const seatId = `${item.id}.${i}`;
+                        const seatBtn = document.createElement('button');
+                        const isSeatSelected = selectedTable === seatId;
+                        
+                        let seatClass = 'w-full h-full rounded-[3px] border shadow-sm text-[9px] font-bold flex items-center justify-center transition-all ';
+                        
+                        if (isSeatSelected) {
+                            seatClass += 'bg-blue-600 border-blue-800 text-white ring-2 ring-blue-400 scale-110 z-20';
+                        } else {
+                            seatClass += 'bg-emerald-500 border-emerald-600 text-white hover:bg-emerald-400';
+                        }
+                        
+                        seatBtn.className = seatClass;
+                        seatBtn.innerText = i;
+                        
+                        seatBtn.style.gridColumn = i <= 7 ? '1' : '3';
+                        seatBtn.style.gridRow = i <= 7 ? i : (i - 7);
+                        
+                        seatBtn.onclick = () => selectTable(seatId);
+                        div.appendChild(seatBtn);
+                    }
+                    mainContainer.appendChild(div);
+                    return;
+                }
+                createTableBtn(item, mainContainer);
+            });
+
+            rowEData.forEach(item => {
+                createTableBtn(item, rowEContainer);
+            });
+
+            // โซนชั้นใต้ดิน
+            const lowerContainer = document.getElementById('lower-seat-grid');
+            lowerContainer.innerHTML = '';
+            lowerFloorData.forEach(item => {
+                if (item.type === 'pillar') {
+                    const pillar = document.createElement('div');
+                    pillar.className = 'w-4 h-4 bg-slate-400 rounded shadow-inner justify-self-center';
+                    pillar.style.gridColumn = item.c;
+                    pillar.style.gridRow = item.r;
+                    lowerContainer.appendChild(pillar);
+                    return;
+                }
+                
+                let btnClass = 'max-w-[55px] h-[45px]'; // ขนาดโต๊ะปกติชั้นใต้ดิน
+                
+                // ถ้ารหัสเป็นแถว 5 ให้ปรับไซส์เป็นโต๊ะเล็ก
+                if (item.r === 5) {
+                    btnClass = '!max-w-[45px] !h-[35px] text-[11px]';
+                }
+
+                const btn = createTableBtn(item, lowerContainer, btnClass);
+                btn.style.gridColumn = item.c;
+                btn.style.gridRow = item.r === 5 ? 6 : item.r; // ข้ามช่องว่างไปแถวสุดท้าย
+            });
+        }
+
+        function selectTable(tableId) {
+            selectedTable = tableId;
+            renderTables();
+            updateSummary();
+        }
+
+        function selectTimeSlot(timeStr, element) {
+            selectedTime = timeStr;
+            document.querySelectorAll('.time-btn').forEach(btn => {
+                btn.className = "time-btn bg-slate-50 border border-slate-200 hover:border-red-800 text-slate-700 font-semibold py-3 rounded-2xl text-xs transition";
+            });
+            element.className = "time-btn active bg-red-800 text-white border-2 border-red-800 font-bold py-3 rounded-2xl text-xs transition shadow-sm";
+            updateSummary();
+        }
+
+        function updateSummary() {
+            document.getElementById('summary-table-no').innerText = `โต๊ะ: ${selectedTable}`;
+            
+            let zoneText = 'ชั้น 1';
+            if (currentFloor === 'lower') {
+                zoneText = 'ชั้นใต้ดิน';
+            } else {
+                if(selectedTable.startsWith('Bar')) zoneText = 'บาร์ที่นั่งเดี่ยว (ชั้น 1)';
+                if(selectedTable.startsWith('S')) zoneText = 'ริมกำแพงซ้าย (ชั้น 1)';
+            }
+            
+            document.getElementById('summary-zone-badge').innerText = zoneText;
+            document.getElementById('summary-time-slot').innerText = `${selectedTime} น.`;
+            document.getElementById('submit-btn-text').innerText = `ยืนยันโต๊ะ ${selectedTable} และไปสั่งอาหาร 👈`;
+        }
+
+        function confirmBookingAndProceed() {
+            localStorage.setItem('booking_seat', selectedTable);
+            localStorage.setItem('booking_time', selectedTime);
+            localStorage.setItem('payment_status', 'unpaid');
+            window.location.href = 'booking.html';
+        }
+
+        function loadUserProfile() {
+            const userEmail = localStorage.getItem('kku_user_email') || 'nepal@kkumail.com';
+            const nameOnly = userEmail.split('@')[0];
+            document.getElementById('user-display-name').innerText = nameOnly;
+            document.getElementById('dropdown-user-email').innerText = userEmail;
+        }
+
+        function toggleUserDropdown(event) {
+            event.stopPropagation();
+            document.getElementById('user-dropdown').classList.toggle('hidden');
+        }
+
+        document.addEventListener('click', () => {
+            const dropdown = document.getElementById('user-dropdown');
+            if (dropdown && !dropdown.classList.contains('hidden')) {
+                dropdown.classList.add('hidden');
+            }
+        });
+
+        function openChangeNameModal() {
+            const currentName = document.getElementById('user-display-name').innerText;
+            document.getElementById('input-new-name').value = currentName;
+            document.getElementById('name-modal').classList.remove('hidden');
+        }
+
+        function closeChangeNameModal() {
+            document.getElementById('name-modal').classList.add('hidden');
+        }
+
+        function saveNewName() {
+            const newName = document.getElementById('input-new-name').value.trim();
+            if (newName) {
+                const fullEmail = newName.includes('@') ? newName : `${newName}@kkumail.com`;
+                localStorage.setItem('kku_user_email', fullEmail);
+                loadUserProfile();
+                closeChangeNameModal();
+            }
+        }
+
+        function handleLogout() {
+            if (confirm('คุณต้องการออกจากระบบใช่หรือไม่?')) {
+                localStorage.setItem('is_logged_in', 'false');
+                window.location.href = 'login.html';
+            }
+        }
+    </script>
+</body>
+</html>
