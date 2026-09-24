@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สั่งอาหารล่วงหน้า - KKU Canteen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style> body { font-family: 'Kanit', sans-serif; } </style>
+</head>
+<body class="bg-slate-100 min-h-screen pb-24 md:pb-8">
+
+    <!-- Header Navigation Bar -->
+    <header class="bg-red-800 text-white shadow-md sticky top-0 z-40">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-white text-red-800 rounded-xl flex items-center justify-center font-bold text-lg shadow">KKU</div>
+                <div>
+                    <h1 class="text-lg md:text-xl font-bold leading-tight">KKU Canteen</h1>
+                    <p class="text-[11px] md:text-xs text-red-200">สั่งอาหารล่วงหน้า</p>
+                </div>
+            </div>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+                <a href="index.html" class="text-red-200 hover:text-white transition flex items-center gap-1.5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    จองโต๊ะ
+                </a>
+                <a href="preorder.html" class="text-white border-b-2 border-white pb-1 font-semibold flex items-center gap-1.5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                    สั่งอาหาร
+                </a>
+                <a href="booking.html" class="text-red-200 hover:text-white transition flex items-center gap-1.5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5h14a2 2 0 012 2v3a2 2 0 01-2 2H5a2 2 0 01-2-2v-3a2 2 0 000-4V7a2 2 0 012-2z"/></svg>
+                    ตั๋วของฉัน
+                </a>
+                <a href="history.html" class="text-red-200 hover:text-white transition flex items-center gap-1.5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    ประวัติ
+                </a>
+            </nav>
+
+            <div class="bg-red-900/70 px-3 py-1.5 rounded-full text-xs flex items-center gap-2 border border-red-700/60 shadow-inner">
+                <span class="w-2.5 h-2.5 bg-emerald-400 rounded-full animate-pulse"></span>
+                <span id="user-display-name" class="font-medium">nepal</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-5xl mx-auto p-4 md:p-6 space-y-6">
+        
+        <!-- Booking Table Banner Info -->
+        <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 flex justify-between items-center shadow-sm">
+            <div>
+                <span class="text-xs text-amber-600 font-semibold block">โต๊ะที่จองไว้</span>
+                <h2 id="display-seat-info" class="text-lg font-bold text-amber-900">โต๊ะ A-04 (11:30 - 12:00 น.)</h2>
+            </div>
+            <a href="index.html" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3.5 py-2 rounded-xl transition font-medium shadow-sm">เปลี่ยนโต๊ะ</a>
+        </div>
+
+        <!-- Category Filter Tabs -->
+        <div class="flex gap-2 overflow-x-auto pb-2 scrollbar-none text-xs md:text-sm font-medium">
+            <button onclick="filterCategory('all', this)" class="category-btn active bg-red-800 text-white px-4 py-2 rounded-xl shadow transition whitespace-nowrap">
+                🍽️ ทั้งหมด
+            </button>
+            <button onclick="filterCategory('savory', this)" class="category-btn bg-white text-slate-600 hover:bg-slate-50 border border-slate-200 px-4 py-2 rounded-xl transition whitespace-nowrap">
+                🍲 ของคาว
+            </button>
+            <button onclick="filterCategory('dessert', this)" class="category-btn bg-white text-slate-600 hover:bg-slate-50 border border-slate-200 px-4 py-2 rounded-xl transition whitespace-nowrap">
+                🍧 ของหวาน
+            </button>
+            <button onclick="filterCategory('drink', this)" class="category-btn bg-white text-slate-600 hover:bg-slate-50 border border-slate-200 px-4 py-2 rounded-xl transition whitespace-nowrap">
+                🥤 เครื่องดื่ม / น้ำ
+            </button>
+            <button onclick="filterCategory('snack', this)" class="category-btn bg-white text-slate-600 hover:bg-slate-50 border border-slate-200 px-4 py-2 rounded-xl transition whitespace-nowrap">
+                🍟 ของทานเล่น / อื่นๆ
+            </button>
+        </div>
+
+        <!-- Food Items Grid Container -->
+        <div id="food-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- Dynamic Content loaded via JS -->
+        </div>
+
+    </main>
+
+    <!-- Floating Cart Button -->
+    <div class="fixed bottom-20 md:bottom-6 right-4 z-30">
+        <button onclick="openCartModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-3 rounded-full shadow-2xl font-bold text-sm flex items-center gap-3 border-2 border-white transition transform active:scale-95">
+            <span class="flex items-center gap-1.5">
+                <span>🛒 ตะกร้าของคุณ</span>
+                <span id="cart-count-badge" class="bg-emerald-800 text-white px-2 py-0.5 rounded-full text-xs font-extrabold">0</span>
+            </span>
+            <span id="cart-total-badge" class="bg-white text-emerald-800 px-2.5 py-1 rounded-full text-xs font-black">0 ฿</span>
+        </button>
+    </div>
+
+    <!-- ------------------------------------------------------------- -->
+    <!-- MODAL 1: ตะกร้าสั่งอาหารล่วงหน้า -->
+    <!-- ------------------------------------------------------------- -->
+    <div id="cart-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
+        <div class="bg-white w-full max-w-md rounded-3xl shadow-2xl overflow-hidden p-6 space-y-5">
+            
+            <div class="flex justify-between items-center">
+                <h3 class="font-bold text-slate-800 text-sm md:text-base flex items-center gap-2">
+                    🛒 ตะกร้าสั่งอาหารล่วงหน้า
+                </h3>
+                <button onclick="closeCartModal()" class="w-8 h-8 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center text-slate-400 font-bold text-sm">✕</button>
+            </div>
+
+            <!-- Food Items Container in Cart -->
+            <div id="cart-items-container" class="space-y-3 max-h-60 overflow-y-auto pr-1">
+                <!-- Cart items rendered dynamically -->
+            </div>
+
+            <!-- Price Breakdown -->
+            <div class="space-y-2 border-t border-slate-100 pt-3 text-xs">
+                <div class="flex justify-between text-slate-500">
+                    <span>ค่าอาหารรวม:</span>
+                    <b id="cart-subtotal" class="text-slate-800">0 ฿</b>
+                </div>
+                <div class="flex justify-between text-slate-500">
+                    <span>ค่าธรรมเนียมบริการจองล่วงหน้า:</span>
+                    <b class="text-emerald-600">ฟรี (0 ฿)</b>
+                </div>
+                <div class="flex justify-between text-sm pt-2 border-t border-slate-100">
+                    <span class="font-bold text-slate-800">ยอดชำระสุทธิ:</span>
+                    <b id="cart-grandtotal" class="text-red-800 text-base font-extrabold">0 ฿</b>
+                </div>
+            </div>
+
+            <!-- Payment Options -->
+            <div class="space-y-2">
+                <span class="text-xs font-semibold text-slate-500 block">ช่องทางการชำระเงิน</span>
+                <div class="grid grid-cols-2 gap-2 text-xs">
+                    <label class="border-2 border-emerald-600 bg-emerald-50/50 p-2.5 rounded-xl flex items-center gap-2 cursor-pointer font-bold text-emerald-900">
+                        <input type="radio" name="payment" checked class="accent-emerald-600">
+                        <span>📲 PromptPay QR</span>
+                    </label>
+                    <label class="border border-slate-200 p-2.5 rounded-xl flex items-center gap-2 cursor-pointer text-slate-600">
+                        <input type="radio" name="payment" class="accent-emerald-600">
+                        <span>💳 KKU Wallet</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Confirm Order Button -->
+            <button onclick="showQRCodeModal()" id="btn-submit-order" disabled class="w-full bg-slate-300 text-slate-500 font-bold py-3.5 rounded-2xl transition text-sm flex items-center justify-center gap-2 cursor-not-allowed">
+                <span>✅ ยืนยันการสั่งอาหารล่วงหน้า</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ------------------------------------------------------------- -->
+    <!-- MODAL 2: QR Code ชำระเงิน + สรุปรายละเอียดจองโต๊ะและอาหาร -->
+    <!-- ------------------------------------------------------------- -->
+    <div id="qr-modal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md hidden items-center justify-center p-4 z-50">
+        <div class="bg-white w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden p-6 space-y-5 border border-slate-100 max-h-[90vh] overflow-y-auto">
+            
+            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                <div class="flex items-center gap-2">
+                    <span class="text-xl">📱</span>
+                    <h3 class="font-bold text-slate-800 text-base">สแกน QR Code ชำระเงิน</h3>
+                </div>
+                <button onclick="closeQRModal()" class="w-8 h-8 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center text-slate-400 font-bold text-sm">✕</button>
+            </div>
+
+            <!-- PromptPay QR Code Display -->
+            <div class="bg-slate-50 border-2 border-dashed border-slate-300 p-4 rounded-2xl text-center space-y-2">
+                <img id="qr-image" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=PROMPTPAY_KKU_CANTEEN" alt="PromptPay QR Code" class="w-40 h-40 mx-auto rounded-lg shadow-sm">
+                <span class="text-[11px] text-slate-500 block font-medium">สแกนผ่าน Mobile Banking ได้ทุกธนาคาร</span>
+                <div class="bg-amber-100 text-amber-800 py-1 px-3 rounded-full text-[11px] font-semibold inline-block">
+                    ⏱️ กรุณาชำระภายใน 15:00 นาที
+                </div>
+            </div>
+
+            <!-- Complete Order & Booking Summary Card -->
+            <div class="space-y-3 bg-slate-50 p-4 rounded-2xl border border-slate-200 text-xs">
+                
+                <!-- Table Details -->
+                <div class="border-b border-slate-200 pb-2.5 space-y-1">
+                    <span class="font-bold text-slate-700 block text-xs">📌 รายละเอียดการจองโต๊ะ</span>
+                    <div class="flex justify-between text-slate-600">
+                        <span>หมายเลขโต๊ะ:</span>
+                        <b class="text-red-800 text-sm" id="qr-seat-no">A-04 (ศูนย์คอมเพล็กซ์ โซน A)</b>
+                    </div>
+                    <div class="flex justify-between text-slate-600">
+                        <span>รอบเวลา:</span>
+                        <b class="text-amber-600" id="qr-time-slot">11:30 - 12:00 น.</b>
+                    </div>
+                </div>
+
+                <!-- Food Items Summary -->
+                <div class="space-y-1.5 pt-1">
+                    <span class="font-bold text-slate-700 block text-xs">🥗 รายการอาหารที่เลือกสั่งทั้งหมด</span>
+                    <div id="qr-food-summary-list" class="space-y-1 text-slate-600">
+                        <!-- Dynamic Order List -->
+                    </div>
+                </div>
+
+                <!-- Total Amount -->
+                <div class="border-t border-slate-200 pt-2 flex justify-between items-center text-sm font-bold">
+                    <span class="text-slate-800">ยอดชำระสุทธิ:</span>
+                    <span id="qr-total-amount" class="text-red-800 text-lg font-extrabold">0 ฿</span>
+                </div>
+            </div>
+
+            <!-- Complete Payment Action Button -->
+            <button onclick="finishPayment()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-2xl shadow-md transition text-sm flex items-center justify-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span>ชำระเงินเรียบร้อยแล้ว (ไปที่ตั๋ว)</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Navigation Bar -->
+    <nav class="md:hidden fixed bottom-0 inset-x-0 bg-white border-t border-slate-200 flex justify-around py-2.5 text-xs font-medium z-40 shadow-lg">
+        <a href="index.html" class="text-slate-400 hover:text-red-800 flex flex-col items-center gap-0.5">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            <span>จองโต๊ะ</span>
+        </a>
+        <a href="preorder.html" class="text-red-800 flex flex-col items-center gap-0.5">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+            <span>สั่งอาหาร</span>
+        </a>
+        <a href="booking.html" class="text-slate-400 hover:text-red-800 flex flex-col items-center gap-0.5">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5h14a2 2 0 012 2v3a2 2 0 01-2 2H5a2 2 0 01-2-2v-3a2 2 0 000-4V7a2 2 0 012-2z"/></svg>
+            <span>ตั๋วของฉัน</span>
+        </a>
+        <a href="history.html" class="text-slate-400 hover:text-red-800 flex flex-col items-center gap-0.5">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span>ประวัติ</span>
+        </a>
+    </nav>
+
+    <!-- JavaScript Data & Logic -->
+    <script>
+        // Database of Food Items
+        const foodProducts = [
+            // ของคาว
+            { id: 1, name: 'ก๋วยเตี๋ยวเรือน้ำตกหมูพิเศษ', category: 'savory', price: 55, detail: 'ปกติ • เพิ่มไข่ (+10฿)', icon: '🍜' },
+            { id: 2, name: 'ข้าวมันไก่กะทะร้อน', category: 'savory', price: 50, detail: 'พิเศษเนื้ออก + น้ำซุป', icon: '🍗' },
+            { id: 3, name: 'ข้าวผัดกระเพราหมูกรอบไข่ดาว', category: 'savory', price: 60, detail: 'เผ็ดมาก • ไข่ดาวเป็ด', icon: '🍳' },
+            { id: 4, name: 'ข้าวหน้าหมูทอดคัตสึด้ง', category: 'savory', price: 55, detail: 'ซอสญี่ปุ่นเข้มข้น', icon: '🍱' },
+            { id: 5, name: 'ส้มตำไทยไข่เค็ม + ไก่ย่าง', category: 'savory', price: 65, detail: 'รสแซ่บตำสดใหม่', icon: '🥗' },
+            
+            // ของหวาน
+            { id: 6, name: 'บิงซูชาไทยเฉาก๊วย', category: 'dessert', price: 45, detail: 'วิปครีม + นมข้นหวาน', icon: '🍧' },
+            { id: 7, name: 'ข้าวเหนียวมะม่วงอกร่อง', category: 'dessert', price: 50, detail: 'ราดกะทิสดหอมมัน', icon: '🥭' },
+            { id: 8, name: 'ไอศกรีมกะทิสดเครื่องทะลัก', category: 'dessert', price: 35, detail: 'ถั่ว ข้าวเหนียว ลูกชิด', icon: '🍨' },
+
+            // เครื่องดื่ม
+            { id: 9, name: 'ชาไทยเย็นตรามือ', category: 'drink', price: 30, detail: 'หวานน้อย (แก้ว 22 oz.)', icon: '🧋' },
+            { id: 10, name: 'กาแฟเอสเพรสโซ่เย็น', category: 'drink', price: 35, detail: 'เข้มข้น หอมกลิ่นคั่ว', icon: '☕' },
+            { id: 11, name: 'น้ำส้มคั้นสด 100%', category: 'drink', price: 40, detail: 'แช่เย็นพร้อมดื่ม', icon: '🍹' },
+
+            // ทานเล่น / อื่นๆ
+            { id: 12, name: 'เฟรนช์ฟรายส์ซอสชีส', category: 'snack', price: 39, detail: 'ทอดร้อนๆ ดิปชีสเยิ้ม', icon: '🍟' },
+            { id: 13, name: 'นักเก็ตไก่ 6 ชิ้น', category: 'snack', price: 45, detail: 'เสิร์ฟพร้อมซอสมะเขือเทศ', icon: '🍗' }
+        ];
+
+        // Cart State Object: { itemId: quantity }
+        let cart = {};
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const seat = localStorage.getItem('booking_seat') || 'A-04';
+            const time = localStorage.getItem('booking_time') || '11:30 - 12:00';
+            const email = localStorage.getItem('kku_user_email') || 'nepal@kkumail.com';
+
+            document.getElementById('display-seat-info').innerText = `โต๊ะ ${seat} (${time} น.)`;
+            document.getElementById('qr-seat-no').innerText = `${seat} (ศูนย์คอมเพล็กซ์ โซน A)`;
+            document.getElementById('qr-time-slot').innerText = `${time} น.`;
+            document.getElementById('user-display-name').innerText = email.split('@')[0];
+
+            renderFoodGrid('all');
+        });
+
+        // Render Food Cards
+        function renderFoodGrid(category) {
+            const grid = document.getElementById('food-grid');
+            grid.innerHTML = '';
+
+            const filtered = category === 'all' ? foodProducts : foodProducts.filter(p => p.category === category);
+
+            filtered.forEach(item => {
+                const qty = cart[item.id] || 0;
+                const card = document.createElement('div');
+                card.className = "bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex justify-between items-center transition hover:shadow-md";
+                card.innerHTML = `
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-1.5">
+                            <span class="text-base">${item.icon}</span>
+                            <h4 class="font-bold text-slate-800 text-sm">${item.name}</h4>
+                        </div>
+                        <p class="text-xs text-slate-400">${item.detail}</p>
+                        <span class="text-red-800 font-extrabold text-sm block">${item.price} ฿</span>
+                    </div>
+                    <div>
+                        ${qty === 0 ? `
+                            <button onclick="addToCart(${item.id})" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs px-3.5 py-2 rounded-xl font-semibold transition shadow active:scale-95">
+                                + เพิ่มในตะกร้า
+                            </button>
+                        ` : `
+                            <div class="flex items-center gap-2 bg-emerald-50 border border-emerald-300 rounded-xl px-2 py-1 text-xs">
+                                <button onclick="updateQty(${item.id}, -1)" class="w-6 h-6 bg-white text-emerald-800 rounded font-bold shadow-sm">-</button>
+                                <span class="font-bold text-emerald-900 px-1">${qty}</span>
+                                <button onclick="updateQty(${item.id}, 1)" class="w-6 h-6 bg-white text-emerald-800 rounded font-bold shadow-sm">+</button>
+                            </div>
+                        `}
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Filter Category Buttons Event
+        function filterCategory(cat, btn) {
+            document.querySelectorAll('.category-btn').forEach(b => {
+                b.className = "category-btn bg-white text-slate-600 hover:bg-slate-50 border border-slate-200 px-4 py-2 rounded-xl transition whitespace-nowrap";
+            });
+            btn.className = "category-btn active bg-red-800 text-white px-4 py-2 rounded-xl shadow transition whitespace-nowrap";
+            renderFoodGrid(cat);
+        }
+
+        // Cart Actions
+        function addToCart(id) {
+            cart[id] = (cart[id] || 0) + 1;
+            updateCartUI();
+        }
+
+        function updateQty(id, change) {
+            if (cart[id]) {
+                cart[id] += change;
+                if (cart[id] <= 0) delete cart[id];
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            let totalCount = 0;
+            let totalPrice = 0;
+
+            Object.keys(cart).forEach(id => {
+                const item = foodProducts.find(p => p.id == id);
+                if (item) {
+                    totalCount += cart[id];
+                    totalPrice += item.price * cart[id];
+                }
+            });
+
+            // Update Floating Button
+            document.getElementById('cart-count-badge').innerText = totalCount;
+            document.getElementById('cart-total-badge').innerText = `${totalPrice} ฿`;
+
+            // Update Cart Modal Summary
+            document.getElementById('cart-subtotal').innerText = `${totalPrice} ฿`;
+            document.getElementById('cart-grandtotal').innerText = `${totalPrice} ฿`;
+
+            // Enable/Disable Submit Button
+            const btnSubmit = document.getElementById('btn-submit-order');
+            if (totalCount > 0) {
+                btnSubmit.disabled = false;
+                btnSubmit.className = "w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-2xl shadow-md transition text-sm flex items-center justify-center gap-2 cursor-pointer active:scale-95";
+            } else {
+                btnSubmit.disabled = true;
+                btnSubmit.className = "w-full bg-slate-300 text-slate-500 font-bold py-3.5 rounded-2xl transition text-sm flex items-center justify-center gap-2 cursor-not-allowed";
+            }
+
+            // Render Items in Cart Modal
+            renderCartModalItems();
+            
+            // Re-render current Grid to reflect quantity changes
+            const activeCategoryBtn = document.querySelector('.category-btn.active');
+            const cat = activeCategoryBtn ? activeCategoryBtn.getAttribute('onclick').match(/'([^']+)'/)[1] : 'all';
+            renderFoodGrid(cat);
+        }
+
+        function renderCartModalItems() {
+            const container = document.getElementById('cart-items-container');
+            container.innerHTML = '';
+
+            const itemIds = Object.keys(cart);
+            if (itemIds.length === 0) {
+                container.innerHTML = `<p class="text-xs text-slate-400 text-center py-6">ไม่มีรายการอาหารในตะกร้า</p>`;
+                return;
+            }
+
+            itemIds.forEach(id => {
+                const item = foodProducts.find(p => p.id == id);
+                const qty = cart[id];
+                const itemTotal = item.price * qty;
+
+                const row = document.createElement('div');
+                row.className = "bg-slate-50 border border-slate-100 p-3 rounded-2xl flex justify-between items-center";
+                row.innerHTML = `
+                    <div class="space-y-0.5">
+                        <h4 class="font-bold text-xs text-slate-800">${item.icon} ${item.name}</h4>
+                        <p class="text-[11px] text-slate-400">${item.detail}</p>
+                        <span class="text-emerald-600 font-bold text-xs block">${item.price} ฿ x ${qty} = ${itemTotal} ฿</span>
+                    </div>
+                    <div class="flex items-center gap-2 bg-white border border-slate-200 rounded-lg px-2 py-1 text-xs">
+                        <button onclick="updateQty(${item.id}, -1)" class="text-slate-400 hover:text-slate-700 font-bold">-</button>
+                        <span class="font-bold text-slate-800">${qty}</span>
+                        <button onclick="updateQty(${item.id}, 1)" class="text-slate-400 hover:text-slate-700 font-bold">+</button>
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        // Modal Handlers
+        function openCartModal() {
+            updateCartUI();
+            document.getElementById('cart-modal').classList.remove('hidden');
+            document.getElementById('cart-modal').classList.add('flex');
+        }
+
+        function closeCartModal() {
+            document.getElementById('cart-modal').classList.add('hidden');
+            document.getElementById('cart-modal').classList.remove('flex');
+        }
+
+        function showQRCodeModal() {
+            closeCartModal();
+
+            // Populate QR Modal Food Summary & Amount
+            const summaryList = document.getElementById('qr-food-summary-list');
+            summaryList.innerHTML = '';
+
+            let totalPrice = 0;
+            const ordersToSave = [];
+
+            Object.keys(cart).forEach(id => {
+                const item = foodProducts.find(p => p.id == id);
+                const qty = cart[id];
+                const itemTotal = item.price * qty;
+                totalPrice += itemTotal;
+
+                ordersToSave.push({ name: item.name, price: itemTotal, qty: qty });
+
+                const div = document.createElement('div');
+                div.className = "flex justify-between";
+                div.innerHTML = `<span>• ${item.name} (x${qty})</span><b>${itemTotal} ฿</b>`;
+                summaryList.appendChild(div);
+            });
+
+            document.getElementById('qr-total-amount').innerText = `${totalPrice} ฿`;
+            
+            // Update Dynamic QR Code image URL based on amount
+            document.getElementById('qr-image').src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=PROMPTPAY_KKU_CANTEEN_${totalPrice}B`;
+
+            // Save details to LocalStorage for Ticket
+            localStorage.setItem('total_price', totalPrice);
+            localStorage.setItem('food_orders', JSON.stringify(ordersToSave));
+
+            document.getElementById('qr-modal').classList.remove('hidden');
+            document.getElementById('qr-modal').classList.add('flex');
+        }
+
+        function closeQRModal() {
+            document.getElementById('qr-modal').classList.add('hidden');
+            document.getElementById('qr-modal').classList.remove('flex');
+        }
+
+        function finishPayment() {
+            localStorage.setItem('payment_status', 'paid');
+            window.location.href = 'booking.html';
+        }
+    </script>
+</body>
+</html>
