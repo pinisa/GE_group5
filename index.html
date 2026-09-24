@@ -65,7 +65,6 @@
         .lower-seat-grid {
             display: grid;
             grid-template-columns: repeat(2, 65px) 24px repeat(4, 65px) 24px repeat(2, 65px);
-            /* เพิ่มแถวเว้นระยะ 30px ก่อนถึงแถวสุดท้ายที่ปรับให้เล็กลงเหลือ 45px */
             grid-template-rows: repeat(4, 65px) 30px 45px; 
             gap: 12px;
             justify-items: center;
@@ -103,10 +102,6 @@
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                     จองโต๊ะ
                 </a>
-                <a href="preorder.html" class="text-red-200 hover:text-white transition flex items-center gap-1.5">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-                    สั่งอาหาร
-                </a>
                 <a href="booking.html" class="text-red-200 hover:text-white transition flex items-center gap-1.5">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5h14a2 2 0 012 2v3a2 2 0 01-2 2H5a2 2 0 000-4V7a2 2 0 012-2z"/></svg>
                     ตั๋วของฉัน
@@ -120,14 +115,14 @@
             <div class="relative">
                 <button onclick="toggleUserDropdown(event)" class="bg-red-900/70 hover:bg-red-900 px-3 py-1.5 rounded-full text-xs flex items-center gap-2 border border-red-700/60 shadow-inner transition active:scale-95">
                     <span class="w-2.5 h-2.5 bg-emerald-400 rounded-full animate-pulse"></span>
-                    <span id="user-display-name" class="font-medium">nepal</span>
+                    <span id="user-display-name" class="font-medium">User</span>
                     <svg class="w-3.5 h-3.5 text-red-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                 </button>
 
                 <div id="user-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-2xl shadow-xl border border-slate-100 py-1.5 z-50 text-xs text-slate-700 space-y-1">
                     <div class="px-4 py-2 border-b border-slate-100">
                         <p class="text-[10px] text-slate-400">เข้าสู่ระบบด้วย</p>
-                        <p id="dropdown-user-email" class="font-bold text-slate-800 truncate">nepal@kkumail.com</p>
+                        <p id="dropdown-user-email" class="font-bold text-slate-800 truncate">@kkumail.com</p>
                     </div>
                     <button onclick="openChangeNameModal()" class="w-full text-left px-4 py-2 hover:bg-slate-50 flex items-center gap-2 font-medium transition">
                         เปลี่ยนชื่อผู้ใช้งาน
@@ -146,9 +141,7 @@
             
             <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-200/80 space-y-3">
                 <div class="flex justify-between items-center text-xs font-bold">
-                    <span class="text-slate-700">
-                        ความหนาแน่นปัจจุบัน
-                    </span>
+                    <span class="text-slate-700">ความหนาแน่นปัจจุบัน</span>
                     <span class="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full border border-emerald-200">ว่าง (0%)</span>
                 </div>
                 <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
@@ -236,8 +229,6 @@
                 <!-- คอนเทนเนอร์ชั้นใต้ดิน -->
                 <div id="lower-floor-container" class="hidden overflow-x-auto pb-2">
                     <div class="lower-layout relative">
-                        
-                        <!-- โซนบันได (ด้านบน) -->
                         <div class="col-span-3 flex justify-center mb-2">
                             <div class="border-2 border-slate-800 w-64 h-12 relative flex items-center justify-center bg-slate-50 overflow-hidden rounded-sm">
                                 <div class="absolute inset-0 flex justify-evenly opacity-30">
@@ -246,20 +237,13 @@
                                 <span class="bg-slate-50 px-3 py-0.5 z-10 font-bold text-slate-700 text-sm border border-slate-300 rounded">ทางลงบันไดลง</span>
                             </div>
                         </div>
-
-                        <!-- โซนซ้าย: ที่เก็บจาน -->
                         <div class="flex flex-col justify-center items-center px-2">
                             <div class="bg-yellow-400 text-yellow-900 font-bold px-3 py-2 rounded-xl shadow-sm text-xs border border-yellow-500 w-full text-center">ที่เก็บ<br>จาน</div>
                         </div>
-
-                        <!-- ผังที่นั่งตรงกลางชั้นใต้ดิน -->
                         <div id="lower-seat-grid" class="lower-seat-grid relative p-4"></div>
-
-                        <!-- โซนขวา: ที่เก็บจาน -->
                         <div class="flex flex-col justify-center items-center px-2">
                             <div class="bg-yellow-400 text-yellow-900 font-bold px-3 py-2 rounded-xl shadow-sm text-xs border border-yellow-500 w-full text-center">ที่เก็บ<br>จาน</div>
                         </div>
-
                     </div>
                 </div>
 
@@ -288,10 +272,10 @@
 
                 <div class="space-y-3 pt-2">
                     <button onclick="confirmBookingAndProceed()" class="w-full bg-red-700 hover:bg-red-800 text-white font-extrabold py-4 rounded-2xl shadow-lg transition duration-200 text-sm flex items-center justify-center gap-2 transform active:scale-95">
-                        <span id="submit-btn-text">ยืนยันโต๊ะ E2 และไปสั่งอาหาร 👈</span>
+                        <span id="submit-btn-text">ยืนยันโต๊ะ E2  👈</span>
                     </button>
                     <p class="text-[11px] text-slate-400 text-center">
-                        *เมื่อยืนยันโต๊ะสำเร็จ จะสามารถสั่งอาหารล่วงหน้าต่อได้ทันที
+                        *เมื่อยืนยันโต๊ะสำเร็จ จะสามารถเช็คอินและสแกน QR Code ต่อได้ทันที
                     </p>
                 </div>
             </div>
@@ -320,10 +304,6 @@
         <a href="index.html" class="text-red-800 flex flex-col items-center gap-0.5">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
             <span>จองโต๊ะ</span>
-        </a>
-        <a href="preorder.html" class="text-slate-400 hover:text-red-800 flex flex-col items-center gap-0.5">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-            <span>สั่งอาหาร</span>
         </a>
         <a href="booking.html" class="text-slate-400 hover:text-red-800 flex flex-col items-center gap-0.5">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5h14a2 2 0 012 2v3a2 2 0 01-2 2H5a2 2 0 000-4V7a2 2 0 012-2z"/></svg>
@@ -375,7 +355,7 @@
             lowerFloorData.push({ id: `U${r}8`, r: r, c: 10, type: 'grey', status: 'available' });
         }
 
-        // แถว 5 ชั้นใต้ดิน (โต๊ะ 6 ตัวเรียงกัน ขนาดเล็กลง U51-U56)
+        // แถว 5 ชั้นใต้ดิน
         lowerFloorData.push({ id: `U51`, r: 5, c: 4, type: 'grey', status: 'available' });
         lowerFloorData.push({ id: `U52`, r: 5, c: 5, type: 'grey', status: 'available' });
         lowerFloorData.push({ id: `U53`, r: 5, c: 6, type: 'grey', status: 'available' });
@@ -383,7 +363,6 @@
         lowerFloorData.push({ id: `U55`, r: 5, c: 9, type: 'grey', status: 'available' });
         lowerFloorData.push({ id: `U56`, r: 5, c: 10, type: 'grey', status: 'available' });
 
-        // ตั้งค่าเริ่มต้น (เปิดมาเจอชั้น 1 โต๊ะ E2)
         let selectedTable = 'E2';
         let selectedTime = '12:00 - 12:30';
         let currentFloor = 'upper'; 
@@ -395,7 +374,7 @@
                 return;
             }
             loadUserProfile();
-            changeFloor(currentFloor); // สลับ UI ตั้งแต่โหลด
+            changeFloor(currentFloor);
             renderTables();
             updateSummary();
         });
@@ -447,7 +426,6 @@
         }
 
         function renderTables() {
-            // โซนชั้น 1
             const mainContainer = document.getElementById('main-seat-grid');
             const rowEContainer = document.getElementById('row-e-grid');
             const leftContainer = document.getElementById('left-wall-grid');
@@ -494,7 +472,6 @@
                         
                         seatBtn.className = seatClass;
                         seatBtn.innerText = i;
-                        
                         seatBtn.style.gridColumn = i <= 7 ? '1' : '3';
                         seatBtn.style.gridRow = i <= 7 ? i : (i - 7);
                         
@@ -511,7 +488,6 @@
                 createTableBtn(item, rowEContainer);
             });
 
-            // โซนชั้นใต้ดิน
             const lowerContainer = document.getElementById('lower-seat-grid');
             lowerContainer.innerHTML = '';
             lowerFloorData.forEach(item => {
@@ -524,70 +500,69 @@
                     return;
                 }
                 
-                let btnClass = 'max-w-[55px] h-[45px]'; // ขนาดโต๊ะปกติชั้นใต้ดิน
-                
-                // ถ้ารหัสเป็นแถว 5 ให้ปรับไซส์เป็นโต๊ะเล็ก
+                let btnClass = 'max-w-[55px] h-[45px]';
                 if (item.r === 5) {
                     btnClass = '!max-w-[45px] !h-[35px] text-[11px]';
                 }
 
                 const btn = createTableBtn(item, lowerContainer, btnClass);
                 btn.style.gridColumn = item.c;
-                btn.style.gridRow = item.r === 5 ? 6 : item.r; // ข้ามช่องว่างไปแถวสุดท้าย
+                btn.style.gridRow = item.r === 5 ? 6 : item.r;
             });
         }
 
-        function selectTable(tableId) {
-            selectedTable = tableId;
+        function selectTable(id) {
+            selectedTable = id;
             renderTables();
             updateSummary();
         }
 
-        function selectTimeSlot(timeStr, element) {
-            selectedTime = timeStr;
-            document.querySelectorAll('.time-btn').forEach(btn => {
-                btn.className = "time-btn bg-slate-50 border border-slate-200 hover:border-red-800 text-slate-700 font-semibold py-3 rounded-2xl text-xs transition";
+        function selectTimeSlot(time, btn) {
+            selectedTime = time;
+            document.querySelectorAll('.time-btn').forEach(b => {
+                b.classList.remove('active', 'bg-red-800', 'text-white', 'border-2', 'border-red-800', 'shadow-sm');
+                b.classList.add('bg-slate-50', 'border-slate-200', 'text-slate-700');
             });
-            element.className = "time-btn active bg-red-800 text-white border-2 border-red-800 font-bold py-3 rounded-2xl text-xs transition shadow-sm";
+            btn.classList.remove('bg-slate-50', 'border-slate-200', 'text-slate-700');
+            btn.classList.add('active', 'bg-red-800', 'text-white', 'border-2', 'border-red-800', 'shadow-sm');
             updateSummary();
         }
 
         function updateSummary() {
-            document.getElementById('summary-table-no').innerText = `โต๊ะ: ${selectedTable}`;
-            
-            let zoneText = 'ชั้น 1';
-            if (currentFloor === 'lower') {
-                zoneText = 'ชั้นใต้ดิน';
-            } else {
-                if(selectedTable.startsWith('Bar')) zoneText = 'บาร์ที่นั่งเดี่ยว (ชั้น 1)';
-                if(selectedTable.startsWith('S')) zoneText = 'ริมกำแพงซ้าย (ชั้น 1)';
-            }
-            
-            document.getElementById('summary-zone-badge').innerText = zoneText;
-            document.getElementById('summary-time-slot').innerText = `${selectedTime} น.`;
-            document.getElementById('submit-btn-text').innerText = `ยืนยันโต๊ะ ${selectedTable} และไปสั่งอาหาร 👈`;
+            const tableEl = document.getElementById('summary-table-no');
+            const timeEl = document.getElementById('summary-time-slot');
+            const badgeEl = document.getElementById('summary-zone-badge');
+            const btnText = document.getElementById('submit-btn-text');
+
+            if (tableEl) tableEl.innerText = `โต๊ะ: ${selectedTable}`;
+            if (timeEl) timeEl.innerText = `${selectedTime} น.`;
+            if (badgeEl) badgeEl.innerText = currentFloor === 'upper' ? 'ชั้น 1' : 'ชั้นใต้ดิน';
+            if (btnText) btnText.innerText = `ยืนยันโต๊ะ ${selectedTable}  👈`;
         }
 
+        // นำทางไปยังหน้า booking.html (ตั๋วของฉัน / สแกน QR) ทันที
         function confirmBookingAndProceed() {
             localStorage.setItem('booking_seat', selectedTable);
             localStorage.setItem('booking_time', selectedTime);
-            localStorage.setItem('payment_status', 'unpaid');
-            window.location.href = 'preorder.html';
+            window.location.href = 'booking.html';
         }
 
         function loadUserProfile() {
-            const userEmail = localStorage.getItem('kku_user_email') || 'nepal@kkumail.com';
-            const nameOnly = userEmail.split('@')[0];
-            document.getElementById('user-display-name').innerText = nameOnly;
-            document.getElementById('dropdown-user-email').innerText = userEmail;
+            const name = localStorage.getItem('user_name') || 'nepal';
+            const email = localStorage.getItem('user_email') || localStorage.getItem('kku_user_email') || 'nepal@kkumail.com';
+            const nameEl = document.getElementById('user-display-name');
+            const emailEl = document.getElementById('dropdown-user-email');
+            if (nameEl) nameEl.innerText = name;
+            if (emailEl) emailEl.innerText = email;
         }
 
         function toggleUserDropdown(event) {
             event.stopPropagation();
-            document.getElementById('user-dropdown').classList.toggle('hidden');
+            const dropdown = document.getElementById('user-dropdown');
+            dropdown.classList.toggle('hidden');
         }
 
-        document.addEventListener('click', () => {
+        window.addEventListener('click', () => {
             const dropdown = document.getElementById('user-dropdown');
             if (dropdown && !dropdown.classList.contains('hidden')) {
                 dropdown.classList.add('hidden');
@@ -595,8 +570,6 @@
         });
 
         function openChangeNameModal() {
-            const currentName = document.getElementById('user-display-name').innerText;
-            document.getElementById('input-new-name').value = currentName;
             document.getElementById('name-modal').classList.remove('hidden');
         }
 
@@ -605,20 +578,17 @@
         }
 
         function saveNewName() {
-            const newName = document.getElementById('input-new-name').value.trim();
-            if (newName) {
-                const fullEmail = newName.includes('@') ? newName : `${newName}@kkumail.com`;
-                localStorage.setItem('kku_user_email', fullEmail);
+            const input = document.getElementById('input-new-name');
+            if (input && input.value.trim() !== '') {
+                localStorage.setItem('user_name', input.value.trim());
                 loadUserProfile();
                 closeChangeNameModal();
             }
         }
 
         function handleLogout() {
-            if (confirm('คุณต้องการออกจากระบบใช่หรือไม่?')) {
-                localStorage.setItem('is_logged_in', 'false');
-                window.location.href = 'login.html';
-            }
+            localStorage.setItem('is_logged_in', 'false');
+            window.location.href = 'login.html';
         }
     </script>
 </body>
