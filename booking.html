@@ -24,7 +24,7 @@
     <header class="bg-red-800 text-white shadow-md sticky top-0 z-40">
         <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
             
-            <!-- 1. โลโก้และชื่อศูนย์อาหาร (อัปเดตเป็น ENKKU) -->
+            <!-- 1. โลโก้และชื่อศูนย์อาหาร -->
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 bg-white text-red-800 rounded-xl flex items-center justify-center font-bold text-xs shadow">ENKKU</div>
                 <div>
@@ -33,15 +33,11 @@
                 </div>
             </div>
 
-            <!-- 2. เมนู Navigation (คงปุ่ม สั่งอาหาร ไว้ตามเดิม) -->
+            <!-- 2. เมนู Navigation -->
             <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
                 <a href="index.html" class="text-red-200 hover:text-white transition flex items-center gap-1.5">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                     จองโต๊ะ
-                </a>
-                <a href="preorder.html" class="text-red-200 hover:text-white transition flex items-center gap-1.5">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-                    สั่งอาหาร
                 </a>
                 <a href="booking.html" class="text-white border-b-2 border-white pb-1 font-semibold flex items-center gap-1.5">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5h14a2 2 0 012 2v3a2 2 0 01-2 2H5a2 2 0 01-2-2v-3a2 2 0 000-4V7a2 2 0 012-2z"/></svg>
@@ -53,18 +49,18 @@
                 </a>
             </nav>
 
-            <!-- 3. เมนูโปรไฟล์แบบกดได้ (อัปเดตระบบ Dropdown) -->
+            <!-- 3. เมนูโปรไฟล์แบบกดได้ -->
             <div class="relative">
                 <button onclick="toggleUserDropdown(event)" class="bg-red-900/70 hover:bg-red-900 px-3 py-1.5 rounded-full text-xs flex items-center gap-2 border border-red-700/60 shadow-inner transition active:scale-95">
                     <span class="w-2.5 h-2.5 bg-emerald-400 rounded-full animate-pulse"></span>
-                    <span id="user-display-name" class="font-medium">nepal</span>
+                    <span id="user-display-name" class="font-medium">User</span>
                     <svg class="w-3.5 h-3.5 text-red-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                 </button>
 
                 <div id="user-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-2xl shadow-xl border border-slate-100 py-1.5 z-50 text-xs text-slate-700 space-y-1">
                     <div class="px-4 py-2 border-b border-slate-100">
                         <p class="text-[10px] text-slate-400">เข้าสู่ระบบด้วย</p>
-                        <p id="dropdown-user-email" class="font-bold text-slate-800 truncate">nepal@kkumail.com</p>
+                        <p id="dropdown-user-email" class="font-bold text-slate-800 truncate">@kkumail.com</p>
                     </div>
                     <button onclick="openChangeNameModal()" class="w-full text-left px-4 py-2 hover:bg-slate-50 flex items-center gap-2 font-medium transition">
                         เปลี่ยนชื่อผู้ใช้งาน
@@ -80,14 +76,14 @@
 
     <main class="max-w-xl mx-auto p-4 md:p-6 space-y-4">
 
-        <!-- Banner Header (ปรับข้อความ) -->
+        <!-- Banner Header -->
         <div class="bg-emerald-600 text-white rounded-3xl p-5 text-center shadow-md space-y-1">
             <div class="inline-flex items-center gap-1.5 bg-emerald-700/80 px-3 py-1 rounded-full text-xs font-semibold">
                 <span class="w-2 h-2 bg-white rounded-full animate-ping"></span>
                 <span>จองโต๊ะเรียบร้อยแล้ว</span>
             </div>
             <h2 class="text-xl font-extrabold">สแกน QR Code ที่โต๊ะจริงเพื่อเช็คอิน</h2>
-            <p class="text-xs text-emerald-100">ส่องกล้องไปที่ป้าย QR Code บนโต๊ะหมายเลข <span id="target-seat-label" class="font-bold underline text-white">A-01</span></p>
+            <p class="text-xs text-emerald-100">ส่องกล้องไปที่ป้าย QR Code บนโต๊ะหมายเลข <span id="target-seat-label" class="font-bold underline text-white">E2</span></p>
         </div>
 
         <!-- ------------------------------------------------------------- -->
@@ -125,7 +121,7 @@
             <!-- Scanner Status & Actions -->
             <div class="space-y-3 text-center">
                 <p class="text-xs text-slate-500 font-medium">
-                    ทาบช่องกล้องให้ตรงกับป้าย QR Code ที่ติดอยู่บนโต๊ะ <strong class="text-red-800" id="scan-target-text">A-01</strong>
+                    ทาบช่องกล้องให้ตรงกับป้าย QR Code ที่ติดอยู่บนโต๊ะ <strong class="text-red-800" id="scan-target-text">E2</strong>
                 </p>
 
                 <div class="grid grid-cols-2 gap-2 text-xs">
@@ -139,20 +135,19 @@
                 </div>
             </div>
 
-            <!-- Table & Booking Summary Info (ลบสถานะอาหารออก) -->
+            <!-- Table & Booking Summary Info -->
             <div class="space-y-2 bg-slate-50 p-4 rounded-2xl border border-slate-200 text-xs">
                 <div class="flex justify-between text-slate-600">
                     <span>หมายเลขโต๊ะที่จอง:</span>
-                    <b class="text-red-800" id="summary-seat">A-01 (ศูนย์อาหารคณะวิศวกรรมศาสตร์)</b>
+                    <b class="text-red-800" id="summary-seat">E2 (ศูนย์อาหารคณะวิศวกรรมศาสตร์)</b>
                 </div>
                 <div class="flex justify-between text-slate-600">
                     <span>รอบเวลา:</span>
-                    <b class="text-amber-600" id="summary-time">11:30 - 12:00 น.</b>
+                    <b class="text-amber-600" id="summary-time">12:00 - 12:30 น.</b>
                 </div>
             </div>
 
         </div>
-
 
         <!-- ------------------------------------------------------------- -->
         <!-- VIEW 2: หน้าจอผลลัพธ์เมื่อสแกนเช็คอินสำเร็จ (Checked-in View) -->
@@ -171,7 +166,7 @@
             <!-- Table Active Card -->
             <div class="bg-amber-50 border-2 border-amber-300 rounded-3xl p-5 space-y-2 text-amber-900 shadow-sm">
                 <span class="text-xs font-bold text-amber-700 block uppercase tracking-wider">กำลังใช้งานโต๊ะ</span>
-                <h4 class="text-4xl font-black text-red-800" id="active-table-no">A-01</h4>
+                <h4 class="text-4xl font-black text-red-800" id="active-table-no">E2</h4>
                 <p class="text-xs font-semibold text-amber-800">เวลาใช้งานคงเหลือ: <span id="table-timer" class="font-bold text-red-700">29:50 นาที</span></p>
             </div>
 
@@ -182,15 +177,11 @@
 
     </main>
 
-    <!-- Mobile Navigation Bar (คงปุ่ม สั่งอาหาร ไว้ตามเดิม) -->
+    <!-- Mobile Navigation Bar -->
     <nav class="md:hidden fixed bottom-0 inset-x-0 bg-white border-t border-slate-200 flex justify-around py-2.5 text-xs font-medium z-40 shadow-lg">
         <a href="index.html" class="text-slate-400 hover:text-red-800 flex flex-col items-center gap-0.5">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
             <span>จองโต๊ะ</span>
-        </a>
-        <a href="preorder.html" class="text-slate-400 hover:text-red-800 flex flex-col items-center gap-0.5">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-            <span>สั่งอาหาร</span>
         </a>
         <a href="booking.html" class="text-red-800 flex flex-col items-center gap-0.5">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5h14a2 2 0 012 2v3a2 2 0 01-2 2H5a2 2 0 01-2-2v-3a2 2 0 000-4V7a2 2 0 012-2z"/></svg>
@@ -219,16 +210,16 @@
         </div>
     </div>
 
-    <!-- Camera Scanner logic & State Handlers -->
     <script>
         let videoStream = null;
 
         window.addEventListener('DOMContentLoaded', () => {
-            const seat = localStorage.getItem('booking_seat') || 'A-01';
-            const time = localStorage.getItem('booking_time') || '11:30 - 12:00';
-            const email = localStorage.getItem('kku_user_email') || 'nepal@kkumail.com';
+            const seat = localStorage.getItem('booking_seat') || 'E2';
+            const time = localStorage.getItem('booking_time') || '12:00 - 12:30';
+            const name = localStorage.getItem('user_name') || 'User';
+            const email = localStorage.getItem('user_email') || localStorage.getItem('kku_user_email') || 'student@kkumail.com';
 
-            document.getElementById('user-display-name').innerText = email.split('@')[0];
+            document.getElementById('user-display-name').innerText = name;
             document.getElementById('dropdown-user-email').innerText = email;
             
             document.getElementById('target-seat-label').innerText = seat;
@@ -264,10 +255,8 @@
         function saveNewName() {
             const newName = document.getElementById('input-new-name').value.trim();
             if (newName) {
-                const fullEmail = newName.includes('@') ? newName : `${newName}@kkumail.com`;
-                localStorage.setItem('kku_user_email', fullEmail);
-                document.getElementById('user-display-name').innerText = newName.split('@')[0];
-                document.getElementById('dropdown-user-email').innerText = fullEmail;
+                localStorage.setItem('user_name', newName);
+                document.getElementById('user-display-name').innerText = newName;
                 closeChangeNameModal();
             }
         }
@@ -279,7 +268,6 @@
             }
         }
 
-        // Initialize Native Device Camera Stream
         async function startCamera() {
             const video = document.getElementById('camera-stream');
             const placeholder = document.getElementById('camera-placeholder');
@@ -310,10 +298,9 @@
             startCamera();
         }
 
-        // Triggered when QR code scan is successful
         function onScanSuccess() {
             stopCamera();
-            const seat = localStorage.getItem('booking_seat') || 'A-01';
+            const seat = localStorage.getItem('booking_seat') || 'E2';
 
             document.getElementById('scanner-view').classList.add('hidden');
             document.getElementById('success-view').classList.remove('hidden');
