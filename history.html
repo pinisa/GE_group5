@@ -29,10 +29,6 @@
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                     จองโต๊ะ
                 </a>
-                <a href="preorder.html" class="text-red-200 hover:text-white transition flex items-center gap-1.5">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-                    สั่งอาหาร
-                </a>
                 <a href="booking.html" class="text-red-200 hover:text-white transition flex items-center gap-1.5">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5h14a2 2 0 012 2v3a2 2 0 01-2 2H5a2 2 0 01-2-2v-3a2 2 0 000-4V7a2 2 0 012-2z"/></svg>
                     ตั๋วของฉัน
@@ -52,14 +48,14 @@
                 <div class="relative">
                     <button onclick="toggleUserDropdown(event)" class="bg-red-900/70 hover:bg-red-900 px-3 py-1.5 rounded-full text-xs flex items-center gap-2 border border-red-700/60 shadow-inner transition active:scale-95">
                         <span class="w-2.5 h-2.5 bg-emerald-400 rounded-full animate-pulse"></span>
-                        <span id="user-display-name" class="font-medium">nepal</span>
+                        <span id="user-display-name" class="font-medium">User</span>
                         <svg class="w-3.5 h-3.5 text-red-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </button>
 
                     <div id="user-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-2xl shadow-xl border border-slate-100 py-1.5 z-50 text-xs text-slate-700 space-y-1">
                         <div class="px-4 py-2 border-b border-slate-100">
                             <p class="text-[10px] text-slate-400">เข้าสู่ระบบด้วย</p>
-                            <p id="dropdown-user-email" class="font-bold text-slate-800 truncate">nepal@kkumail.com</p>
+                            <p id="dropdown-user-email" class="font-bold text-slate-800 truncate">@kkumail.com</p>
                         </div>
                         <button onclick="openChangeNameModal()" class="w-full text-left px-4 py-2 hover:bg-slate-50 flex items-center gap-2 font-medium transition">
                             เปลี่ยนชื่อผู้ใช้งาน
@@ -158,10 +154,6 @@
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
             <span>จองโต๊ะ</span>
         </a>
-        <a href="preorder.html" class="text-slate-400 hover:text-red-800 flex flex-col items-center gap-0.5">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-            <span>สั่งอาหาร</span>
-        </a>
         <a href="booking.html" class="text-slate-400 hover:text-red-800 flex flex-col items-center gap-0.5">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5h14a2 2 0 012 2v3a2 2 0 01-2 2H5a2 2 0 01-2-2v-3a2 2 0 000-4V7a2 2 0 012-2z"/></svg>
             <span>ตั๋วของฉัน</span>
@@ -174,30 +166,26 @@
 
     <!-- History Data & Scripts -->
     <script>
-        // Data เริ่มต้นถูกเคลียร์ออกเพื่อรับข้อมูลจริงจาก Database
         const initialHistory = [];
-
         let currentFilter = 'all';
 
         window.addEventListener('DOMContentLoaded', () => {
-            // Load User Profile Data
-            const email = localStorage.getItem('kku_user_email') || 'nepal@kkumail.com';
-            document.getElementById('user-display-name').innerText = email.split('@')[0];
-            document.getElementById('dropdown-user-email').innerText = email;
-
-            // ลบ Mock Data เก่าที่อาจค้างอยู่ใน LocalStorage ทิ้งเพื่อให้เริ่มใหม่แบบคลีนๆ
-            if (localStorage.getItem('kku_booking_history') && JSON.parse(localStorage.getItem('kku_booking_history')).length > 0) {
-                // หากยังต้องการเก็บไว้ทดสอบ ลบบรรทัดล่างออกได้ครับ
-                localStorage.setItem('kku_booking_history', JSON.stringify([])); 
-            }
-
+            loadUserProfile();
+            
             if (!localStorage.getItem('kku_booking_history')) {
                 localStorage.setItem('kku_booking_history', JSON.stringify(initialHistory));
             }
             renderHistory();
         });
 
-        // Dropdown functions
+        function loadUserProfile() {
+            const name = localStorage.getItem('user_name') || 'User';
+            const email = localStorage.getItem('user_email') || localStorage.getItem('kku_user_email') || 'student@kkumail.com';
+            
+            document.getElementById('user-display-name').innerText = name;
+            document.getElementById('dropdown-user-email').innerText = email;
+        }
+
         function toggleUserDropdown(event) {
             event.stopPropagation();
             document.getElementById('user-dropdown').classList.toggle('hidden');
@@ -223,10 +211,8 @@
         function saveNewName() {
             const newName = document.getElementById('input-new-name').value.trim();
             if (newName) {
-                const fullEmail = newName.includes('@') ? newName : `${newName}@kkumail.com`;
-                localStorage.setItem('kku_user_email', fullEmail);
-                document.getElementById('user-display-name').innerText = newName.split('@')[0];
-                document.getElementById('dropdown-user-email').innerText = fullEmail;
+                localStorage.setItem('user_name', newName);
+                loadUserProfile();
                 closeChangeNameModal();
             }
         }
@@ -249,7 +235,6 @@
             
             container.innerHTML = '';
 
-            // Update Statistics Counters
             const totalCount = history.length;
             const successCount = history.filter(h => h.status === 'completed').length;
             const cancelCount = history.filter(h => h.status === 'canceled').length;
@@ -258,7 +243,6 @@
             document.getElementById('stat-success').innerText = successCount;
             document.getElementById('stat-canceled').innerText = cancelCount;
 
-            // Filter logic
             const filtered = history.filter(item => {
                 const matchTab = currentFilter === 'all' || item.status === currentFilter;
                 const matchSearch = item.table.toLowerCase().includes(searchVal) || 
@@ -306,10 +290,10 @@
 
                             <div class="flex items-center gap-1.5">
                                 <button onclick="editBooking('${item.id}')" class="bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-200 px-3 py-1.5 rounded-xl text-xs font-semibold transition flex items-center gap-1">
-                                    <span></span> แก้ไข
+                                    แก้ไข
                                 </button>
                                 <button onclick="deleteBooking('${item.id}')" class="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 px-3 py-1.5 rounded-xl text-xs font-semibold transition flex items-center gap-1">
-                                    <span></span> ลบ
+                                    ลบ
                                 </button>
                             </div>
                         </div>
@@ -319,7 +303,6 @@
             }
         }
 
-        // Tab Switcher
         function setTabFilter(tab) {
             currentFilter = tab;
             ['all', 'completed', 'canceled'].forEach(t => {
@@ -337,7 +320,6 @@
             renderHistory();
         }
 
-        // Action Handlers
         function deleteBooking(id) {
             if (confirm(`คุณต้องการลบประวัติการจองรหัส ${id} ใช่หรือไม่?`)) {
                 let history = getHistoryData();
@@ -348,7 +330,7 @@
         }
 
         function editBooking(id) {
-            const newTable = prompt(`แก้ไขหมายเลขโต๊ะสำหรับรหัส ${id}:`, "A-02");
+            const newTable = prompt(`แก้ไขหมายเลขโต๊ะสำหรับรหัส ${id}:`, "E2");
             if (newTable) {
                 let history = getHistoryData();
                 const item = history.find(h => h.id === id);
